@@ -1,8 +1,9 @@
 function getguestsemail(CalendarEvent) {
   var guests = CalendarEvent.getGuestList(true);
-  var result = [];
-  for (i=0; i<guests.length; i++){
-    result.push(guests[i].getEmail());
+  //var result = [];
+  for (j=0; j<guests.length; j++){
+    if (guests[i] != undefined){
+      Logger.log(guests[j].getEmail());
+    }
   }
-  return result
 }
