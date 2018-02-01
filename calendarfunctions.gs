@@ -5,7 +5,7 @@ var CalendarClass = function(){
   }
   
   this.getCalendarsByName = function (name) {
-    this.calendar = CalendarApp.getCalendarsByName(name);
+    this.calendar = CalendarApp.getCalendarsByName(name)[0];
   }
   
   this.getEvents = function (start,end) {
