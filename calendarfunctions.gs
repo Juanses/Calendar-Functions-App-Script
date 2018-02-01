@@ -1,10 +1,14 @@
 var CalendarClass = function(){
   
-  this.getdefault = function () {
+  this.getDefault = function () {
     this.calendar = CalendarApp.getDefaultCalendar();
   }
   
-  this.getevents = function (start,end) {
+  this.getCalendarsByName = function (name) {
+    this.calendar = CalendarApp.getCalendarsByName(name);
+  }
+  
+  this.getEvents = function (start,end) {
     return this.calendar.getEvents(start,end);
   }
   
