@@ -8,8 +8,19 @@ var CalendarClass = function(){
     this.calendar = CalendarApp.getCalendarsByName(name)[0];
   }
   
-  this.getEvents = function (start,end) {
-    return this.calendar.getEvents(start,end);
+  this.getEvents = function (start,end,status) {
+    //CalendarApp.GuestStatus.INVITED / MAYBE / NO / OWNER	/ YES
+    if (status == undefined){return this.calendar.getEvents(start,end);}
+    else{
+      var result = [];
+      var events = this.calendar.getEvents(start,end)
+      for (var i = 0; i < events.length; i++) {
+        if (status.indexOf(events[i].getMyStatus()) != -1){
+          result.push(events[i]);
+        }
+      }
+      return result;
+    }
   }
   
   this.getpeoplefromevent = function(CalendarEvent){
