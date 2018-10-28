@@ -44,7 +44,7 @@ var CalendarClass = function(){
   this.createICSfile = function (arrayofdates){
     //arrayofdates = [start,end,title,description]
     var text = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MedecinDirect astreintes//FR\nCALSCALE:GREGORIAN\nX-WR-TIMEZONE:Europe/Paris\nBEGIN:VTIMEZONE\nTZID:Europe/Paris\nBEGIN:DAYLIGHT\nTZNAME:GMT+2\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3\nDTSTART:20000326T020000\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:GMT+1\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10\nDTSTART:20001029T030000\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nEND:STANDARD\nEND:VTIMEZONE\n";
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < arrayofdates.length; i++) {
       text += "BEGIN:VEVENT\nDTSTAMP:"+this.DTcreate(new Date())+"\n";
       text +="UID:"+this.uuidv4().toUpperCase()+"\n";
       text += "CREATED:"+this.DTcreate(new Date())+"\n";
