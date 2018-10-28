@@ -43,13 +43,15 @@ var CalendarClass = function(){
   
   this.createICSfile = function (arrayofdates){
     //arrayofdates = [start,end,title,description]
-    var text = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Flexibits Inc./Fantastical for Mac 2.5.5//EN\nCALSCALE:GREGORIAN\nX-WR-TIMEZONE:Europe/Paris\nBEGIN:VTIMEZONE\nTZID:Europe/Paris\nBEGIN:DAYLIGHT\nTZNAME:GMT+2\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3\nDTSTART:20000326T020000\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:GMT+1\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10\nDTSTART:20001029T030000\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nEND:STANDARD\nEND:VTIMEZONE\n";
+    var text = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MedecinDirect astreintes//FR\nCALSCALE:GREGORIAN\nX-WR-TIMEZONE:Europe/Paris\nBEGIN:VTIMEZONE\nTZID:Europe/Paris\nBEGIN:DAYLIGHT\nTZNAME:GMT+2\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3\nDTSTART:20000326T020000\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:GMT+1\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10\nDTSTART:20001029T030000\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nEND:STANDARD\nEND:VTIMEZONE\n";
     for (var i = 0; i < 2; i++) {
-      text += "BEGIN:VEVENT\nDTSTAMP:"+calendar.DTcreate(new Date())+"\n"+"UID:"+uuidv4().toUpperCase()+"\nCREATED:"+calendar.DTcreate(new Date())+"\n";
-      text += "DTSTART;TZID=Europe/Paris:"+calendar.DTcreate(finaldates[i][0])+"\n";
-      text += "DTEND;TZID=Europe/Paris:"+calendar.DTcreate(finaldates[i][1])+"\n";
-      text += "DESCRIPTION:"+finaldates[i][2]+"\n";
-      text += "SUMMARY:"+finaldates[i][3]+"\n";
+      text += "BEGIN:VEVENT\nDTSTAMP:"+this.DTcreate(new Date())+"\n";
+      text +="UID:"+this.uuidv4().toUpperCase()+"\n";
+      text += "CREATED:"+this.DTcreate(new Date())+"\n";
+      text += "DTSTART;TZID=Europe/Paris:"+this.DTcreate(arrayofdates[i][0])+"\n";
+      text += "DTEND;TZID=Europe/Paris:"+this.DTcreate(arrayofdates[i][1])+"\n";
+      text += "DESCRIPTION:"+arrayofdates[i][2]+"\n";
+      text += "SUMMARY:"+arrayofdates[i][3]+"\n";
       text += "SEQUENCE:0\nSTATUS:CONFIRMED\nX-APPLE-TRAVEL-ADVISORY-BEHAVIOR:AUTOMATIC\nEND:VEVENT\n";
     }
     text += "END:VCALENDAR";
@@ -63,7 +65,7 @@ var CalendarClass = function(){
   }  
   
   //Return UID
-  function uuidv4() {
+  this.uuidv4 = function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
