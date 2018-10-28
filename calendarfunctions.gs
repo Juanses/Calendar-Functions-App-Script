@@ -42,13 +42,18 @@ var CalendarClass = function(){
   }
   
   this.createICSfile = function (arrayofdates){
-    var calicsbegin = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Flexibits Inc./Fantastical for Mac 2.5.5//EN\nCALSCALE:GREGORIAN\nBEGIN:VTIMEZONE\nTZID:Europe/Paris\nBEGIN:DAYLIGHT\nTZNAME:GMT+2\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3\nDTSTART:20000326T020000\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:GMT+1\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10\nDTSTART:20001029T030000\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nEND:STANDARD\nEND:VTIMEZONE\n";
-    var now_date = new Date();
-    Logger.log(arrayofdates);
-    /*var pre = aDate.getFullYear().toString() + ((aDate.getMonth() + 1)<10? "0" + (aDate.getMonth() + 1).toString():(aDate.getMonth() + 1).toString()) + ((aDate.getDate() + 1)<10? "0" + aDate.getDate().toString():aDate.getDate().toString());
-    var post = (aDate.getHours()%12).toString() + aDate.getMinutes().toString() + "00";
-    console.log(pre + "T" + post);*/
-    
+    //arrayofdates = [start,end,title,description]
+    var text = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Flexibits Inc./Fantastical for Mac 2.5.5//EN\nCALSCALE:GREGORIAN\nX-WR-TIMEZONE:Europe/Paris\nBEGIN:VTIMEZONE\nTZID:Europe/Paris\nBEGIN:DAYLIGHT\nTZNAME:GMT+2\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3\nDTSTART:20000326T020000\nTZOFFSETFROM:+0100\nTZOFFSETTO:+0200\nEND:DAYLIGHT\nBEGIN:STANDARD\nTZNAME:GMT+1\nRRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10\nDTSTART:20001029T030000\nTZOFFSETFROM:+0200\nTZOFFSETTO:+0100\nEND:STANDARD\nEND:VTIMEZONE\n";
+    for (var i = 0; i < 2; i++) {
+      text += "BEGIN:VEVENT\nDTSTAMP:"+calendar.DTcreate(new Date())+"\n"+"UID:"+uuidv4().toUpperCase()+"\nCREATED:"+calendar.DTcreate(new Date())+"\n";
+      text += "DTSTART;TZID=Europe/Paris:"+calendar.DTcreate(finaldates[i][0])+"\n";
+      text += "DTEND;TZID=Europe/Paris:"+calendar.DTcreate(finaldates[i][1])+"\n";
+      text += "DESCRIPTION:"+finaldates[i][2]+"\n";
+      text += "SUMMARY:"+finaldates[i][3]+"\n";
+      text += "SEQUENCE:0\nSTATUS:CONFIRMED\nX-APPLE-TRAVEL-ADVISORY-BEHAVIOR:AUTOMATIC\nEND:VEVENT\n";
+    }
+    text += "END:VCALENDAR";
+    return text;
   }
   
   this.DTcreate = function(aDate){
